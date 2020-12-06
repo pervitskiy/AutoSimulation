@@ -16,11 +16,7 @@ public class Main {
         System.out.println("Введите количество мастеров: ");
         int numberOfMaster = sc.nextInt();
 
-        List<Worker> listWorker = new ArrayList<Worker>();
-        for(int i=1 ; i<numberOfMaster; i++){
-            listWorker.add(new Worker(i, "Работник" + i));
-        }
-        List<Car> carList = new ArrayList<Car>();
+        List<Car> carList = new ArrayList<>();
         carList.add(new Bmw());
         carList.add(new Lada());
         carList.add(new Kia());
@@ -28,12 +24,19 @@ public class Main {
         carList.add(new Bmw());
         carList.add(new Bmw());
 
-        Garage garage = new Garage(numberOfParkingPace, listWorker);
-        garage.takeTheCar(carList.get(0));
-        garage.takeTheCar(carList.get(1));
-        garage.takeTheCar(carList.get(2));
-        garage.takeTheCar(carList.get(3));
-        garage.takeTheCar(carList.get(4));
+        Garage garage = new Garage(numberOfParkingPace, numberOfMaster);
+        garage.putCar(carList.get(0));
+        garage.putCar(carList.get(1));
+        garage.putCar(carList.get(2));
+        garage.putCar(carList.get(3));
+        garage.putCar(carList.get(0));
+        garage.putCar(carList.get(1));
+        garage.putCar(carList.get(2));
+        garage.putCar(carList.get(3));
+        garage.putCar(carList.get(0));
+        garage.putCar(carList.get(1));
+        garage.putCar(carList.get(2));
+        garage.putCar(carList.get(3));
 
     }
 }
