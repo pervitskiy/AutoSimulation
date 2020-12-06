@@ -4,20 +4,39 @@ import java.util.*;
 
 public class Garage {
     private int numberOfParkingPace;
+
+    public synchronized Queue<Car> getCarQueue() {
+        return carQueue;
+    }
+
+    public synchronized void setCarQueue(Queue<Car> carQueue) {
+        this.carQueue = carQueue;
+    }
+
     private Queue<Car> carQueue = new LinkedList<Car>();
-    private int availableEmployees;
+
+    public synchronized Queue<Car> getCarQueueInWork() {
+        return carQueueInWork;
+    }
+
+    public synchronized void setCarQueueInWork(Queue<Car> carQueueInWork) {
+        this.carQueueInWork = carQueueInWork;
+    }
+
+    private Queue<Car> carQueueInWork = new LinkedList<Car>();
+
     private List<Worker> workerList = new ArrayList<>();
 
     public Garage(int numberOfParkingPace, int numberOfMaster) {
         this.numberOfParkingPace = numberOfParkingPace;
         for (int i=1; i<=numberOfMaster; i++){
-           workerList.add(new Worker(i));
+           workerList.add(new Worker(i, this));
            workerList.get(i-1).start();
         }
     }
 
     public synchronized void putCar(Car car){
-        while (carQueue.size() > numberOfParkingPace){
+        while (getCarQueue().size() > numberOfParkingPace - 1){
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -25,34 +44,20 @@ public class Garage {
             }
         }
         System.out.println("Машина " + car + " доставлена в гараж");
-        carQueue.offer(car);
+        getCarQueue().offer(car);
+        carQueueInWork.offer(car);
         notify();
     }
 
-    public synchronized void getCar(){
-        availableEmployees = 0;
-        //находим количество свободных сотрудников
-        workerList.forEach(worker -> {
-            if (worker.isCanWork()){
-                availableEmployees++;
-            }
-        });
-        //если машин нет или все сотрудники заняты
-        while (carQueue.size() < 1 || availableEmployees == 0){
+    public synchronized Queue<Car> getCar(){
+        while (carQueue.size() < 1){
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        //проходимся по всем сотрудникам и находим не занятых
-        for (Worker worker : workerList){
-            if (worker.isCanWork()){
-                worker.setCar(carQueue.poll());
-                break;
-            }
-        }
         notify();
+        return getCarQueueInWork();
     }
-
 }

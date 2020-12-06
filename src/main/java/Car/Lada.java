@@ -2,6 +2,6 @@ package Car;
 
 public class Lada extends Car {
     public Lada() {
-        super("lada", 11);
+        super("lada", 20);
     }
 }
