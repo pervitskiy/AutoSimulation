@@ -20,7 +20,7 @@ public class Spawn extends Thread {
         while(true) { //бесконечно крутим
             try {
                 //рандомно во времени создаем машину
-                i = Math.round(Math.random() * 15000);
+                i = Math.round(Math.random() * 1000);
                 Thread.sleep(i); // 4 секунды в милисекундах
                 double rand = Math.random();
                 if (rand < 0.33) {

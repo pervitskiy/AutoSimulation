@@ -27,7 +27,6 @@ public class Main {
         Spawn spawn = new Spawn();
         spawn.start();
 
-        int count = 0;
         while (true){
             towTrackList.forEach(towTrack -> {
                 if(!towTrack.isCarIsLoaded() && !spawn.getCars().isEmpty()){
@@ -35,26 +34,6 @@ public class Main {
                 }
             });
         }
-
-        /*
-        List<Car> carList = new ArrayList<>();
-        carList.add(new Bmw()); //0 -bmw
-        carList.add(new Lada()); //1- lada
-        carList.add(new Kia()); //2-kia
-
-
-        garage.putCar(carList.get(0));
-        garage.putCar(carList.get(1));
-        garage.putCar(carList.get(2));
-        garage.putCar(carList.get(2));
-        garage.putCar(carList.get(1));
-        garage.putCar(carList.get(2));
-        garage.putCar(carList.get(0));
-        garage.putCar(carList.get(0));
-        garage.putCar(carList.get(1));
-
-         */
-
     }
 }
 
