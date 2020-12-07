@@ -23,13 +23,16 @@ public class Main {
             towTrackList.get(i-1).setGarage(garage);
             towTrackList.get(i-1).start();
         }
-
+        //поток, который спавнит машины
         Spawn spawn = new Spawn();
         spawn.start();
 
         while (true){
+            //проходимся по списку эвакуаторов
             towTrackList.forEach(towTrack -> {
+                //если эвакуатор свободен и есть машины, которые надо забрать, то забираем
                 if(!towTrack.isCarIsLoaded() && !spawn.getCars().isEmpty()){
+                    System.out.println("Сломанные машины " +  spawn.getCars());
                     towTrack.setCar(spawn.getCars().poll());
                 }
             });

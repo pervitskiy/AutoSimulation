@@ -33,6 +33,12 @@ public class Spawn extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            /*
+            if (!getCars().isEmpty()){
+                System.out.println(getCars());
+            }
+
+             */
         }
     }
 }

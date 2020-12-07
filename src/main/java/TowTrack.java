@@ -37,6 +37,7 @@ public class TowTrack extends Thread {
         this.carIsLoaded = carIsLoaded;
     }
 
+    //наверное так не правильно)
     public void run() {
         while (isActive){
             if (isCarIsLoaded()){

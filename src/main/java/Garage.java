@@ -13,6 +13,7 @@ public class Garage {
         this.carQueue = carQueue;
     }
 
+    //очередь машин в гараже
     private Queue<Car> carQueue = new LinkedList<Car>();
 
     public synchronized Queue<Car> getCarQueueInWork() {
@@ -23,6 +24,7 @@ public class Garage {
         this.carQueueInWork = carQueueInWork;
     }
 
+    //очередь из машин, которые уже обсдуживаются
     private Queue<Car> carQueueInWork = new LinkedList<Car>();
 
     private List<Worker> workerList = new ArrayList<>();
