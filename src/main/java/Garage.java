@@ -38,7 +38,7 @@ public class Garage {
     }
 
     public synchronized void putCar(Car car){
-        while (getCarQueue().size() > numberOfParkingPace - 1){
+        while (getCarQueue().size() >= numberOfParkingPace){
             try {
                 wait();
             } catch (InterruptedException e) {
