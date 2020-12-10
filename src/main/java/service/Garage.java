@@ -1,8 +1,14 @@
-import Car.Car;
+package service;
 
+import auto.Car;
+import auto.TowTrack;
+import utils.workDB;
+
+import java.sql.Timestamp;
 import java.util.*;
 
 public class Garage {
+
     private int numberOfParkingPace;
 
     public synchronized Queue<Car> getCarQueue() {
@@ -24,7 +30,7 @@ public class Garage {
         this.carQueueInWork = carQueueInWork;
     }
 
-    //очередь из машин, которые уже обсдуживаются
+    //очередь из машин, которые уже обслуживаются
     private Queue<Car> carQueueInWork = new LinkedList<Car>();
 
     private List<Worker> workerList = new ArrayList<>();
@@ -37,15 +43,17 @@ public class Garage {
         }
     }
 
-    public synchronized void putCar(Car car){
+    public synchronized void putCar(Car car, TowTrack towTrack){
         while (getCarQueue().size() >= numberOfParkingPace){
             try {
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Машина " + car + " доставлена в гараж");
+        workDB.add("Car " + car + " delivered to the garage by a Tow truck " + towTrack.getIdTrack(),
+                   new Timestamp(System.currentTimeMillis()));
+        System.out.println("Машина " + car + " доставлена в гараж Эвакуатором " + towTrack.getIdTrack() );
         getCarQueue().offer(car);
         carQueueInWork.offer(car);
         notify();
@@ -54,12 +62,11 @@ public class Garage {
     public synchronized Queue<Car> getCar(){
         while (carQueue.size() < 1){
             try {
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        notify();
         return getCarQueueInWork();
     }
 }

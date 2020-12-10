@@ -1,4 +1,6 @@
-import Car.*;
+package utils;
+
+import auto.*;
 
 import java.util.*;
 
@@ -23,12 +25,18 @@ public class Spawn extends Thread {
                 i = Math.round(Math.random() * 1000);
                 Thread.sleep(i); // 4 секунды в милисекундах
                 double rand = Math.random();
-                if (rand < 0.33) {
-                    cars.offer(new Bmw());
+                if (rand < 0.16) {
+                    cars.offer(Car.BMW);
+                } else if (rand < 0.33) {
+                    cars.offer(Car.KIA);
+                } else if (rand < 0.49) {
+                    cars.offer(Car.MERCEDES);
                 } else if (rand < 0.66) {
-                    cars.offer(new Lada());
+                    cars.offer(Car.VOLKSWAGEN);
+                } else if (rand < 0.83) {
+                    cars.offer(Car.TOYOTA);
                 } else {
-                    cars.offer(new Kia());
+                    cars.offer(Car.LADA);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
