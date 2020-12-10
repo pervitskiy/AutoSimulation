@@ -12,6 +12,7 @@ public class workDB {
     private static Statement stmt;
 
     public synchronized static void add(String message, Timestamp timestamp ) {
+        /*
         try {
             String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(timestamp);
             String insertTableSql = String.format("INSERT INTO record(message, time) values('%s', '%s')", message, time);
@@ -22,9 +23,12 @@ public class workDB {
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         } finally {
-            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
-            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { con.close(); } catch(SQLException se) { /*can't do anything * }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything * }
         }
+
+         */
     }
+
 }
 
